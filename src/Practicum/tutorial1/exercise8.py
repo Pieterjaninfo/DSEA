@@ -18,5 +18,5 @@ def get_largest_primefactor(n):
     return result
 
 
-print('prime factor 13195: %d' % get_largest_primefactor(13195))
-print('prime factor 600851475143: %d' % get_largest_primefactor(600851475143))
+print('Largest prime factor of 13195: %d' % get_largest_primefactor(13195))
+print('Largest prime factor of 600851475143: %d' % get_largest_primefactor(600851475143))
