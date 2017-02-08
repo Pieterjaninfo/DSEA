@@ -18,5 +18,5 @@ def get_prime_factorization(a):
 
 
 if __name__ == '__main__':
-    print('Divisors of 12: ' + str(get_divisors(2)))
+    print('Divisors of 12: ' + str(get_divisors(12)))
     print('Prime factorization of 360 is: %s' % get_prime_factorization(360))
