@@ -24,4 +24,3 @@ if __name__ == '__main__':
 
     h = open_graph('resources/made_graphs/new_examplegraph.gr')
     print(h)
-

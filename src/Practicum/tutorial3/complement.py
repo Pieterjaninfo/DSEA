@@ -2,6 +2,7 @@ from src.Practicum.tutorial3.graph import *
 from src.Practicum.tutorial3.exercise2 import *
 
 
+# Saved the complement of an undirected graph from the given location to the given location
 def complement(file_in, file_out):
     g = open_graph(file_in)
     g_vertices_size = len(g.vertices)
