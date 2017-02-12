@@ -7,24 +7,39 @@ def breath_first_search(graph):
     L = [graph.vertices[0]]
     label = OrderedDict()
     label[L[0]] = 1
-    # label = [(L[0], 1)]
-    pred = {L[0] : []}
+    pred = {L[0]: []}
+    k = 1
+
+    while L:
+        v = L[0]
+        if exists_unlabeled_neighbour(label, v.neighbours):
+            w = exists_unlabeled_neighbour(label, v.neighbours)
+            k += 1
+            label[w] = k
+            pred[w] = v
+            L.append(w)
+        else:
+            L.remove(v)
+    return label, pred
+
+
+def depth_first_search(graph):
+    L = [graph.vertices[0]]
+    label = OrderedDict()
+    label[L[0]] = 1
+    pred = {L[0]: []}
     k = 1
 
     while L:
         v = L[-1]
-        for w in v.neighbours:
-            if w not in label:
-                k += 1
-                label[w] = k
-                # label.append((w, k))
-                pred[w] = v
-
-                print('Node %s with k=%s' % (w.label, str(k)))
-                if w not in L:
-                    L.append(w)
-            # else:
-        L.remove(v)
+        if exists_unlabeled_neighbour(label, v.neighbours):
+            w = exists_unlabeled_neighbour(label, v.neighbours)
+            k += 1
+            label[w] = k
+            pred[w] = v
+            L.append(w)
+        else:
+            L.remove(v)
     return label, pred
 
 
@@ -39,6 +54,6 @@ if __name__ == '__main__':
     g = open_graph('resources/graphs/examplegraph.gr')
     result = breath_first_search(g)
 
-    print(g)
+    # print(g)
     for key in result[0]:
-        print(result[0][key])
+        print((result[0][key], key))
