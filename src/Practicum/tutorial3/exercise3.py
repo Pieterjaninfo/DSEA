@@ -9,5 +9,6 @@ def writeDOT(graph, filepath):
 
 
 if __name__ == '__main__':
-    g = create_graph_cycle(6)
-    writeDOT(g, 'resources/made_graphs/new_graph.dot')
+    # g = create_graph_cycle(6)
+    g = open_graph('resources/graphs/examplegraph.gr')
+    writeDOT(g, 'resources/made_graphs/examplegraph.dot')
