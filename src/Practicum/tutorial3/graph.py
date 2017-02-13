@@ -289,6 +289,17 @@ class Graph(object):
 
         self._v.append(vertex)
 
+    def del_vertex(self, vertex: "Vertex"):
+        """
+        Deletes the vertex from the graph including all its edges
+        :param vertex: The vertex to be deleted
+        """
+
+        for e in self._e:
+            if e.tail == vertex or e.head == vertex:
+                self.del_edge(e)
+        self._v.remove(vertex)
+
     def add_edge(self, edge: "Edge"):
         """
         Add an edge to the graph. And if necessary also the vertices.
@@ -312,6 +323,16 @@ class Graph(object):
 
         edge.head._add_incidence(edge)
         edge.tail._add_incidence(edge)
+
+    def del_edge(self, edge: "Edge"):
+        """
+        Deletes the edge from the graph
+        :param edge: The edge to be removed
+        """
+        if edge not in self._e:
+            raise GraphError('Edge must belong to the graph in order to be removed')
+        else:
+            self._e.remove(edge)
 
     def __add__(self, other: "Graph") -> "Graph":
         """
