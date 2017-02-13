@@ -333,6 +333,11 @@ class Graph(object):
             raise GraphError('Edge must belong to the graph in order to be removed')
         else:
             self._e.remove(edge)
+            edge.head._incidence[edge.tail].remove(edge)
+            edge.tail._incidence[edge.head].remove(edge)
+            if not edge.head._incidence[edge.tail]:
+                edge.head._incidence.pop(edge.tail)
+                edge.tail._incidence.pop(edge.head)
 
     def __add__(self, other: "Graph") -> "Graph":
         """
