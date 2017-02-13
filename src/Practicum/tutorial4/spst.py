@@ -4,9 +4,9 @@ from math import inf
 
 # Use these options to change the tests:
 
-TEST_BELLMAN_FORD_DIRECTED = False
+TEST_BELLMAN_FORD_DIRECTED = True
 TEST_BELLMAN_FORD_UNDIRECTED = False
-TEST_DIJKSTRA_DIRECTED = False      # True
+TEST_DIJKSTRA_DIRECTED = False
 TEST_DIJKSTRA_UNDIRECTED = True
 TEST_KRUSKAL = False
 USE_UNSAFE_GRAPH = False
@@ -14,7 +14,8 @@ USE_UNSAFE_GRAPH = False
 WRITE_DOT_FILES = True
 
 # Use these options to select the graphs to test your algorithms on:
-TestInstances = ["weightedexample.gr"]
+# TestInstances = ["weightedexample.gr"]
+TestInstances = ["randomplanar.gr"]
 # TestInstances=["graph1.gr","graph2.gr","graph3.gr","graph4.gr","graph5.gr","graph6.gr"]
 # TestInstances=["negativeweightexample.gr"]
 # TestInstances=["negativeweightcycleexample.gr"]
