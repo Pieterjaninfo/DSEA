@@ -7,14 +7,14 @@ from termcolor import colored
 # Use these options to change the tests:
 
 TEST_BELLMAN_FORD_DIRECTED = True
-TEST_BELLMAN_FORD_UNDIRECTED = False
-TEST_DIJKSTRA_DIRECTED = False
-TEST_DIJKSTRA_UNDIRECTED = False
+TEST_BELLMAN_FORD_UNDIRECTED = True
+TEST_DIJKSTRA_DIRECTED = True
+TEST_DIJKSTRA_UNDIRECTED = True
 
-WRITE_DOT_FILES = False
+WRITE_DOT_FILES = True
 
 # Use this to select the graphs to test your algorithms on:
-# TestInstances = ["weightedexample.gr"]
+TestInstances = ["weightedexample.gr"]
 # TestInstances=["randomplanar.gr"]
 # TestInstances = ["randomplanar10.gr"]
 # TestInstances=["bd.gr","bbf.gr"]; WriteDOTFiles=False
@@ -22,16 +22,18 @@ WRITE_DOT_FILES = False
 # TestInstances=["bbf200.gr"]
 # TestInstances=["negativeweightexample.gr"]
 # TestInstances=["negativeweightcycleexample.gr"]
-TestInstances=["WDE100.gr","WDE200.gr","WDE400.gr","WDE800.gr","WDE2000.gr"]; WriteDOTFiles=True
+# TestInstances=["WDE100.gr","WDE200.gr","WDE400.gr","WDE800.gr","WDE2000.gr"]; WriteDOTFiles=False
+# TestInstances=["WDE2000.gr"]
 # TestInstances=["weightedex500.gr"];	WriteDOTFiles=False
 
 
 USE_UNSAFE_GRAPH = False
 
 """
+TEST RESULTS
 Bellman-ford directed
-
-- W2000: 36.41883420944214
+- W2000: 36.41883420944214 seconds, improved: 0.2511610984802246 seconds
+- bbf2000: 6.311946868896484 seconds, improved:6.749789714813232 seconds
 """
 
 
@@ -55,9 +57,16 @@ def bellman_ford_undirected(graph, start):
     start.dist = 0
 
     # Update vertex attributes each iteration
+    changed_made = False
     for i in range(0, n - 1):
         for edge in graph.edges:
-            relax(edge, False)
+            if relax(edge, False):
+                changed_made = True
+
+        if not changed_made:
+            print(colored('Bellman-Ford algorithm ended early on iteration ' + str(i + 1), 'green'))
+            break
+        changed_made = False
 
     # Negative cycle detection
     for edge in graph.edges:
@@ -87,15 +96,16 @@ def bellman_ford_directed(graph, start):
     start.dist = 0
 
     # Update vertex attributes each iteration
-    changes = False
+    changes_made = False
     for i in range(0, n - 1):
         for edge in graph.edges:
             if relax(edge, True):
-                changes = True
+                changes_made = True
 
-        if not changes:
+        if not changes_made:
+            print(colored('Bellman-Ford algorithm ended early on iteration ' + str(i + 1), 'green'))
             break
-        changes = False
+        changes_made = False
 
     # Negative cycle detection
     for edge in graph.edges:
