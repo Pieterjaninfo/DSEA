@@ -5,7 +5,7 @@ from math import inf
 # Use these options to change the tests:
 
 TEST_BELLMAN_FORD_DIRECTED = True
-TEST_BELLMAN_FORD_UNDIRECTED = False
+TEST_BELLMAN_FORD_UNDIRECTED = True
 TEST_DIJKSTRA_DIRECTED = False
 TEST_DIJKSTRA_UNDIRECTED = True
 TEST_KRUSKAL = False
