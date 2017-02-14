@@ -7,11 +7,11 @@ from termcolor import colored
 # Use these options to change the tests:
 
 TEST_BELLMAN_FORD_DIRECTED = True
-TEST_BELLMAN_FORD_UNDIRECTED = True
-TEST_DIJKSTRA_DIRECTED = True
-TEST_DIJKSTRA_UNDIRECTED = True
+TEST_BELLMAN_FORD_UNDIRECTED = False
+TEST_DIJKSTRA_DIRECTED = False
+TEST_DIJKSTRA_UNDIRECTED = False
 
-WRITE_DOT_FILES = True
+WRITE_DOT_FILES = False
 
 # Use this to select the graphs to test your algorithms on:
 # TestInstances = ["weightedexample.gr"]
@@ -21,12 +21,19 @@ WRITE_DOT_FILES = True
 # TestInstances=["bbf2000.gr"]; WriteDOTFiles=False
 # TestInstances=["bbf200.gr"]
 # TestInstances=["negativeweightexample.gr"]
-TestInstances=["negativeweightcycleexample.gr"]
-# TestInstances=["WDE100.gr","WDE200.gr","WDE400.gr","WDE800.gr","WDE2000.gr"]; WriteDOTFiles=False
+# TestInstances=["negativeweightcycleexample.gr"]
+TestInstances=["WDE100.gr","WDE200.gr","WDE400.gr","WDE800.gr","WDE2000.gr"]; WriteDOTFiles=True
 # TestInstances=["weightedex500.gr"];	WriteDOTFiles=False
 
 
 USE_UNSAFE_GRAPH = False
+
+"""
+Bellman-ford directed
+
+- W2000: 36.41883420944214
+"""
+
 
 
 def bellman_ford_undirected(graph, start):
@@ -80,9 +87,15 @@ def bellman_ford_directed(graph, start):
     start.dist = 0
 
     # Update vertex attributes each iteration
+    changes = False
     for i in range(0, n - 1):
         for edge in graph.edges:
-            relax(edge, True)
+            if relax(edge, True):
+                changes = True
+
+        if not changes:
+            break
+        changes = False
 
     # Negative cycle detection
     for edge in graph.edges:
@@ -151,6 +164,7 @@ def relax(edge, directed):
     :param edge: Potentially violating edge
     :param directed: true if the graph is directed, else false
     """
+    change_made = False
     u = edge.tail
     v = edge.head
     w = edge.weight
@@ -158,15 +172,18 @@ def relax(edge, directed):
     if v.dist > u.dist + w:
         v.dist = u.dist + w
         v.in_edge = u
+        change_made = True
 
     if not directed and u.dist > v.dist + w:
         u.dist = v.dist + w
         u.in_edge = v
+        change_made = True
+    return change_made
 
 
 def pick_smallest_vertex(vertices, S):
     """
-    Returns the vertex with the lowest distance to be explored next
+    Returns the vertex with the lowest distance (stored in its label) to be explored next
     :param vertices: All the vertices of the given graph
     :param S: List containing all the previously explored vertices
     :return: Vertex with the lowest distance in the frontier list
