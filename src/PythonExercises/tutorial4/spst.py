@@ -37,7 +37,6 @@ Bellman-ford directed
 """
 
 
-
 def bellman_ford_undirected(graph, start):
     """
     Arguments: <graph> is a graph object, where edges have integer <weight>
