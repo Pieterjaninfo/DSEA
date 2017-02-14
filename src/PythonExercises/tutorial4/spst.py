@@ -2,6 +2,7 @@ from src.PythonExercises.tutorial3.graph import *
 from src.PythonExercises.tutorial3.graph_io import load_graph, write_dot # graphIO import graphs.py, so we do not need to import it here.
 import os
 from math import inf
+from termcolor import colored
 
 # Use these options to change the tests:
 
@@ -13,33 +14,19 @@ TEST_DIJKSTRA_UNDIRECTED = True
 WRITE_DOT_FILES = True
 
 # Use this to select the graphs to test your algorithms on:
-TestInstances = ["weightedexample.gr"]
+# TestInstances = ["weightedexample.gr"]
 # TestInstances=["randomplanar.gr"]
 # TestInstances = ["randomplanar10.gr"]
 # TestInstances=["bd.gr","bbf.gr"]; WriteDOTFiles=False
 # TestInstances=["bbf2000.gr"]; WriteDOTFiles=False
 # TestInstances=["bbf200.gr"]
 # TestInstances=["negativeweightexample.gr"]
-# TestInstances=["negativeweightcycleexample.gr"]
+TestInstances=["negativeweightcycleexample.gr"]
 # TestInstances=["WDE100.gr","WDE200.gr","WDE400.gr","WDE800.gr","WDE2000.gr"]; WriteDOTFiles=False
 # TestInstances=["weightedex500.gr"];	WriteDOTFiles=False
 
 
 USE_UNSAFE_GRAPH = False
-
-
-def relax(edge, directed):
-    u = edge.tail
-    v = edge.head
-    w = edge.weight
-
-    if v.dist > u.dist + w:
-        v.dist = u.dist + w
-        v.in_edge = u
-
-    if not directed and u.dist > v.dist + w:
-        u.dist = v.dist + w
-        u.in_edge = v
 
 
 def bellman_ford_undirected(graph, start):
@@ -54,22 +41,24 @@ def bellman_ford_undirected(graph, start):
     """
     n = len(graph)
 
+    # Initialize the vertex attributes
     for v in graph.vertices:
         v.dist = inf
         v.in_edge = None
     start.dist = 0
 
+    # Update vertex attributes each iteration
     for i in range(0, n - 1):
         for edge in graph.edges:
             relax(edge, False)
 
+    # Negative cycle detection
     for edge in graph.edges:
         u = edge.tail
         v = edge.head
         w = edge.weight
         if v.dist > u.dist + w or u.dist > v.dist + w:
-            return 'neg. cycle'
-    return 0
+            print(colored('Negative cycle in bellman-ford undirected', 'red'))
 
 
 def bellman_ford_directed(graph, start):
@@ -84,22 +73,26 @@ def bellman_ford_directed(graph, start):
     """
     n = len(graph)
 
+    # Initialize the vertex attributes
     for v in graph.vertices:
         v.dist = inf
         v.in_edge = None
     start.dist = 0
 
+    # Update vertex attributes each iteration
     for i in range(0, n - 1):
         for edge in graph.edges:
             relax(edge, True)
 
+    # Negative cycle detection
     for edge in graph.edges:
         u = edge.tail
         v = edge.head
         w = edge.weight
         if v.dist > u.dist + w:
-            return 'neg. cycle'
-    return 0
+            print(colored('Negative cycle in bellman-ford directed', 'red'))
+            return False
+    return True
 
 
 def dijkstra_undirected(graph, start):
@@ -112,11 +105,13 @@ def dijkstra_undirected(graph, start):
         shortest path edge, for every reachable vertex except <start>.
         <graph> is viewed as an undirected graph.
     """
+    # Initialize the vertex attributes
     for v in graph.vertices:
         v.dist = inf
         v.in_edge = None
     start.dist = 0
 
+    # Update vertex attributes each iteration
     S = []
     while len(S) != len(graph.vertices):
         v = pick_smallest_vertex(graph.vertices, S)
@@ -135,11 +130,13 @@ def dijkstra_directed(graph, start):
         shortest path edge, for every reachable vertex except <start>.
         <graph> is viewed as a directed graph.
     """
+    # Initialize the vertex attributes
     for v in graph.vertices:
         v.dist = inf
         v.in_edge = None
     start.dist = 0
 
+    # Update vertex attributes each iteration
     S = []
     while len(S) != len(graph.vertices):
         v = pick_smallest_vertex(graph.vertices, S)
@@ -148,7 +145,32 @@ def dijkstra_directed(graph, start):
             relax(edge, True)
 
 
+def relax(edge, directed):
+    """
+    Corrects a violating triangle inequality
+    :param edge: Potentially violating edge
+    :param directed: true if the graph is directed, else false
+    """
+    u = edge.tail
+    v = edge.head
+    w = edge.weight
+
+    if v.dist > u.dist + w:
+        v.dist = u.dist + w
+        v.in_edge = u
+
+    if not directed and u.dist > v.dist + w:
+        u.dist = v.dist + w
+        u.in_edge = v
+
+
 def pick_smallest_vertex(vertices, S):
+    """
+    Returns the vertex with the lowest distance to be explored next
+    :param vertices: All the vertices of the given graph
+    :param S: List containing all the previously explored vertices
+    :return: Vertex with the lowest distance in the frontier list
+    """
     min_v = None
     val = inf
     for vertex in vertices:
