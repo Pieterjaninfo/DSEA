@@ -1,6 +1,6 @@
-from src.Practicum.tutorial3.graph_io import *
-from src.Practicum.tutorial3.exercise1 import *
-from src.Practicum.tutorial3.complement import *
+from src.PythonExercises.tutorial3.graph_io import *
+from src.PythonExercises.tutorial3.exercise1 import *
+from src.PythonExercises.tutorial3.complement import *
 
 
 def writeDOT(graph, filepath):

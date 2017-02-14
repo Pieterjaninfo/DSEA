@@ -1,5 +1,5 @@
-from src.Practicum.tutorial3.graph_io import load_graph, save_graph
-from src.Practicum.tutorial3.exercise1 import *
+from src.PythonExercises.tutorial3.graph_io import load_graph, save_graph
+from src.PythonExercises.tutorial3.exercise1 import *
 
 
 def open_graph(filename):

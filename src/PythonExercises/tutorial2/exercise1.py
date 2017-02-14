@@ -1,4 +1,4 @@
-from src.Practicum.tutorial2.perm import *
+from src.PythonExercises.tutorial2.perm import *
 
 
 def composition(p, q):

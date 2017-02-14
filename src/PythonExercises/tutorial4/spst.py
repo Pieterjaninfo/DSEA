@@ -1,5 +1,5 @@
-from src.Practicum.tutorial3.graph import *
-from src.Practicum.tutorial3.graph_io import load_graph, write_dot # graphIO import graphs.py, so we do not need to import it here.
+from src.PythonExercises.tutorial3.graph import *
+from src.PythonExercises.tutorial3.graph_io import load_graph, write_dot # graphIO import graphs.py, so we do not need to import it here.
 from math import inf
 
 # Use these options to change the tests:

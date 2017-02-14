@@ -1,5 +1,5 @@
-from src.Practicum.tutorial3.graph import *
-from src.Practicum.tutorial3.exercise2 import *
+from src.PythonExercises.tutorial3.graph import *
+from src.PythonExercises.tutorial3.exercise2 import *
 
 
 # Saved the complement of an undirected graph from the given location to the given location

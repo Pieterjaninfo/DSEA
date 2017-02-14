@@ -1,5 +1,5 @@
 import itertools
-from src.Practicum.tutorial3.graph import *
+from src.PythonExercises.tutorial3.graph import *
 # with open('mygraph.dot', 'w') as f: write_dot(G,f)
 
 
