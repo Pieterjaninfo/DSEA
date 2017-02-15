@@ -310,15 +310,25 @@ class Tree(object):
         if self.root:
             self._balance(self.root)
 
-    def _balance(self, node: Node) -> None:
+    def _balance(self, node: Node) -> None:     # TODO FIX IMPLEMENTATION
         """
         Private method which balances the subtree at a given node.
 
         :param node: The node to be balanced.
         """
         assert isinstance(node, Node)
+        self.balance_nodes(node)
 
+    def balance_nodes(self, node: Node):
+        if node.left is not None and node.left.left is not None and node.left.left.left is None:
+            self._rotate_right(node.left.left)
+        if node.right is not None and node.right.right is not None and node.right.right.right is None:
+            self._rotate_left(node.right.right)
 
+        if node.left is not None:
+            self.balance_nodes(node.left)
+        if node.right is not None:
+            self.balance_nodes(node.right)
 
     def _rotate_left(self, node: Node) -> None:
         """
