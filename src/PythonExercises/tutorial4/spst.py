@@ -7,14 +7,14 @@ from termcolor import colored
 # Use these options to change the tests:
 
 TEST_BELLMAN_FORD_DIRECTED = True
-TEST_BELLMAN_FORD_UNDIRECTED = True
+TEST_BELLMAN_FORD_UNDIRECTED = False
 TEST_DIJKSTRA_DIRECTED = True
-TEST_DIJKSTRA_UNDIRECTED = True
+TEST_DIJKSTRA_UNDIRECTED = False
 
 WRITE_DOT_FILES = True
 
 # Use this to select the graphs to test your algorithms on:
-TestInstances = ["weightedexample.gr"]
+# TestInstances = ["weightedexample.gr"]
 # TestInstances=["randomplanar.gr"]
 # TestInstances = ["randomplanar10.gr"]
 # TestInstances=["bd.gr","bbf.gr"]; WriteDOTFiles=False
@@ -25,7 +25,7 @@ TestInstances = ["weightedexample.gr"]
 # TestInstances=["WDE100.gr","WDE200.gr","WDE400.gr","WDE800.gr","WDE2000.gr"]; WriteDOTFiles=False
 # TestInstances=["WDE2000.gr"]
 # TestInstances=["weightedex500.gr"];	WriteDOTFiles=False
-
+TestInstances = ["graph1.gr", "graph2.gr", "graph3.gr", "graph4.gr", "graph5.gr", "graph6.gr"]
 
 USE_UNSAFE_GRAPH = False
 
@@ -163,7 +163,7 @@ def dijkstra_directed(graph, start):
     while len(S) != len(graph.vertices):
         v = pick_smallest_vertex(graph.vertices, S)
         S.append(v)
-        for edge in graph.edges:
+        for edge in v.incidence:
             relax(edge, True)
 
 
@@ -180,12 +180,12 @@ def relax(edge, directed):
 
     if v.dist > u.dist + w:
         v.dist = u.dist + w
-        v.in_edge = u
+        v.in_edge = edge
         change_made = True
 
     if not directed and u.dist > v.dist + w:
         u.dist = v.dist + w
-        u.in_edge = v
+        u.in_edge = edge
         change_made = True
     return change_made
 
@@ -197,7 +197,7 @@ def pick_smallest_vertex(vertices, S):
     :param S: List containing all the previously explored vertices
     :return: Vertex with the lowest distance in the frontier list
     """
-    min_v = None
+    min_v = vertices[0]
     val = inf
     for vertex in vertices:
         if vertex not in S and vertex.dist < val:
@@ -238,7 +238,7 @@ def prepare_drawing(graph):
         v.label = str(v.dist)
 
 
-def do_testalg(testalg, G):
+def do_testalg(testalg, G, filename):
     if testalg[1]:
         print("\n\nTesting", testalg[0])
         startt = time()
@@ -269,7 +269,7 @@ def do_testalg(testalg, G):
                 v.label = v._label
 
         if WRITE_DOT_FILES:
-            with open(os.path.join(os.getcwd() + '/../../../resources/made_graphs/', testalg[3] + '.dot'), 'w') as f:
+            with open(os.path.join(os.getcwd() + '/../../../resources/made_graphs/', testalg[3] + ' ' + filename + '.dot'), 'w') as f:
                 write_dot(G, f, directed=testalg[4])
 
 
@@ -301,4 +301,4 @@ if __name__ == "__main__":
 
             for i, vertex in enumerate(list(G.vertices)):
                 vertex.colornum = i
-            do_testalg(testalg, G)
+            do_testalg(testalg, G, FileName)
