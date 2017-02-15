@@ -7,9 +7,9 @@ from termcolor import colored
 # Use these options to change the tests:
 
 TEST_BELLMAN_FORD_DIRECTED = True
-TEST_BELLMAN_FORD_UNDIRECTED = False
+TEST_BELLMAN_FORD_UNDIRECTED = True
 TEST_DIJKSTRA_DIRECTED = True
-TEST_DIJKSTRA_UNDIRECTED = False
+TEST_DIJKSTRA_UNDIRECTED = True
 
 WRITE_DOT_FILES = True
 
@@ -138,7 +138,7 @@ def dijkstra_undirected(graph, start):
     while len(S) != len(graph.vertices):
         v = pick_smallest_vertex(graph.vertices, S)
         S.append(v)
-        for edge in graph.edges:
+        for edge in v.incidence:
             relax(edge, False)
 
 
@@ -172,6 +172,7 @@ def relax(edge, directed):
     Corrects a violating triangle inequality
     :param edge: Potentially violating edge
     :param directed: true if the graph is directed, else false
+    :return true if a correction was made
     """
     change_made = False
     u = edge.tail
