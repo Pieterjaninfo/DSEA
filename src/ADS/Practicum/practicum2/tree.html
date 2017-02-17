@@ -1,0 +1,188 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Python: module tree</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head><body bgcolor="#f0f0f8">
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong>tree</strong></big></big></font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:c%3A%5Cusers%5Cpieter%20jan%5Cpycharmprojects%5Cdsea%5Csrc%5Cads%5Cpracticum%5Cpracticum2%5Ctree.py">c:\users\pieter jan\pycharmprojects\dsea\src\ads\practicum\practicum2\tree.py</a></font></td></tr></table>
+    <p><tt>Implementation&nbsp;of&nbsp;a&nbsp;binary&nbsp;search&nbsp;tree.<br>
+&nbsp;<br>
+Based&nbsp;on&nbsp;[1]<br>
+[1]:&nbsp;<a href="http://interactivepython.org/runestone/static/pythonds/Trees/SearchTreeImplementation.html">http://interactivepython.org/runestone/static/pythonds/Trees/SearchTreeImplementation.html</a></tt></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#aa55cc">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#aa55cc"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="typing.html">typing</a><br>
+</td><td width="25%" valign=top></td><td width="25%" valign=top></td><td width="25%" valign=top></td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ee77aa">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Classes</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#ee77aa"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl>
+<dt><font face="helvetica, arial"><a href="builtins.html#object">builtins.object</a>
+</font></dt><dd>
+<dl>
+<dt><font face="helvetica, arial"><a href="tree.html#Node">Node</a>
+</font></dt><dt><font face="helvetica, arial"><a href="tree.html#Tree">Tree</a>
+</font></dt><dt><font face="helvetica, arial"><a href="tree.html#TreeIterator">TreeIterator</a>
+</font></dt></dl>
+</dd>
+</dl>
+ <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="Node">class <strong>Node</strong></a>(<a href="builtins.html#object">builtins.object</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt>A&nbsp;binary&nbsp;search&nbsp;tree&nbsp;node.<br>
+&nbsp;<br>
+Nodes&nbsp;are&nbsp;not&nbsp;meant&nbsp;to&nbsp;be&nbsp;created&nbsp;manually,&nbsp;a&nbsp;node&nbsp;is&nbsp;created&nbsp;by&nbsp;a&nbsp;`<a href="#Tree">Tree</a>`<br>
+when&nbsp;a&nbsp;key&nbsp;is&nbsp;added&nbsp;using&nbsp;`<a href="#Tree">Tree</a>.insert()`.<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%">Methods defined here:<br>
+<dl><dt><a name="Node-__bool__"><strong>__bool__</strong></a>(self) -&gt; bool</dt></dl>
+
+<dl><dt><a name="Node-__init__"><strong>__init__</strong></a>(self, key:int, parent:'Node'=None)</dt><dd><tt>:param&nbsp;key:&nbsp;The&nbsp;key&nbsp;of&nbsp;this&nbsp;node.<br>
+:param&nbsp;parent:&nbsp;The&nbsp;parent&nbsp;node&nbsp;or&nbsp;`None`&nbsp;if&nbsp;this&nbsp;is&nbsp;the&nbsp;root&nbsp;node.</tt></dd></dl>
+
+<dl><dt><a name="Node-__iter__"><strong>__iter__</strong></a>(self) -&gt; tree.TreeIterator</dt></dl>
+
+<dl><dt><a name="Node-__len__"><strong>__len__</strong></a>(self) -&gt; int</dt></dl>
+
+<dl><dt><a name="Node-__str__"><strong>__str__</strong></a>(self) -&gt; str</dt><dd><tt>Return&nbsp;str(self).</tt></dd></dl>
+
+<dl><dt><a name="Node-copy"><strong>copy</strong></a>(self, parent:typing.Union=None) -&gt; 'Node'</dt><dd><tt>Copies&nbsp;the&nbsp;current&nbsp;node&nbsp;recursively.<br>
+&nbsp;<br>
+This&nbsp;method&nbsp;does&nbsp;not&nbsp;deep&nbsp;copy&nbsp;the&nbsp;keys.<br>
+&nbsp;<br>
+:param&nbsp;parent:&nbsp;The&nbsp;parent&nbsp;of&nbsp;the&nbsp;new,&nbsp;copied&nbsp;node.<br>
+:return:&nbsp;The&nbsp;new,&nbsp;copied&nbsp;node.</tt></dd></dl>
+
+<dl><dt><a name="Node-first"><strong>first</strong></a>(self) -&gt; 'Node'</dt><dd><tt>:return:&nbsp;The&nbsp;leftmost&nbsp;node&nbsp;in&nbsp;the&nbsp;subtree,&nbsp;or&nbsp;`self`&nbsp;if&nbsp;there&nbsp;is&nbsp;no&nbsp;left&nbsp;subtree.</tt></dd></dl>
+
+<dl><dt><a name="Node-is_leaf"><strong>is_leaf</strong></a>(self) -&gt; bool</dt><dd><tt>:return:&nbsp;Whether&nbsp;this&nbsp;node&nbsp;is&nbsp;a&nbsp;leaf&nbsp;of&nbsp;the&nbsp;tree.</tt></dd></dl>
+
+<dl><dt><a name="Node-is_left"><strong>is_left</strong></a>(self) -&gt; bool</dt><dd><tt>:return:&nbsp;Whether&nbsp;this&nbsp;node&nbsp;is&nbsp;the&nbsp;left&nbsp;child&nbsp;of&nbsp;its&nbsp;parent.</tt></dd></dl>
+
+<dl><dt><a name="Node-is_right"><strong>is_right</strong></a>(self) -&gt; bool</dt><dd><tt>:return:&nbsp;Whether&nbsp;this&nbsp;node&nbsp;is&nbsp;the&nbsp;right&nbsp;child&nbsp;of&nbsp;its&nbsp;parent.</tt></dd></dl>
+
+<dl><dt><a name="Node-is_root"><strong>is_root</strong></a>(self) -&gt; bool</dt><dd><tt>:return:&nbsp;Whether&nbsp;this&nbsp;node&nbsp;is&nbsp;the&nbsp;root&nbsp;of&nbsp;a&nbsp;tree.</tt></dd></dl>
+
+<dl><dt><a name="Node-last"><strong>last</strong></a>(self) -&gt; 'Node'</dt><dd><tt>:return:&nbsp;The&nbsp;rightmost&nbsp;node&nbsp;in&nbsp;the&nbsp;subtree,&nbsp;or&nbsp;`self`&nbsp;if&nbsp;there&nbsp;is&nbsp;no&nbsp;right&nbsp;subtree.</tt></dd></dl>
+
+<dl><dt><a name="Node-right_ancestor"><strong>right_ancestor</strong></a>(self) -&gt; typing.Union</dt><dd><tt>:return:&nbsp;The&nbsp;right&nbsp;ancestor&nbsp;(first&nbsp;larger&nbsp;parent)&nbsp;of&nbsp;the&nbsp;current&nbsp;node.</tt></dd></dl>
+
+<dl><dt><a name="Node-successor"><strong>successor</strong></a>(self) -&gt; typing.Union</dt><dd><tt>:return:&nbsp;The&nbsp;successor&nbsp;(first&nbsp;larger&nbsp;node)&nbsp;of&nbsp;the&nbsp;current&nbsp;node.</tt></dd></dl>
+
+<hr>
+Data descriptors defined here:<br>
+<dl><dt><strong>__dict__</strong></dt>
+<dd><tt>dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<dl><dt><strong>__weakref__</strong></dt>
+<dd><tt>list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+</td></tr></table> <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="Tree">class <strong>Tree</strong></a>(<a href="builtins.html#object">builtins.object</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt>A&nbsp;binary&nbsp;search&nbsp;tree.<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%">Methods defined here:<br>
+<dl><dt><a name="Tree-__eq__"><strong>__eq__</strong></a>(self, other:'Tree') -&gt; bool</dt><dd><tt>Return&nbsp;self==value.</tt></dd></dl>
+
+<dl><dt><a name="Tree-__init__"><strong>__init__</strong></a>(self, root:tree.Node=None)</dt><dd><tt>Initialize&nbsp;self.&nbsp;&nbsp;See&nbsp;help(type(self))&nbsp;for&nbsp;accurate&nbsp;signature.</tt></dd></dl>
+
+<dl><dt><a name="Tree-__iter__"><strong>__iter__</strong></a>(self) -&gt; tree.TreeIterator</dt></dl>
+
+<dl><dt><a name="Tree-__len__"><strong>__len__</strong></a>(self) -&gt; int</dt></dl>
+
+<dl><dt><a name="Tree-__str__"><strong>__str__</strong></a>(self) -&gt; str</dt><dd><tt>Return&nbsp;str(self).</tt></dd></dl>
+
+<dl><dt><a name="Tree-balance"><strong>balance</strong></a>(self) -&gt; None</dt><dd><tt>Balances&nbsp;the&nbsp;tree.</tt></dd></dl>
+
+<dl><dt><a name="Tree-copy"><strong>copy</strong></a>(self) -&gt; 'Tree'</dt><dd><tt>Copies&nbsp;the&nbsp;tree&nbsp;recursively.<br>
+&nbsp;<br>
+:return:&nbsp;A&nbsp;new,&nbsp;copied&nbsp;tree.</tt></dd></dl>
+
+<dl><dt><a name="Tree-graphviz"><strong>graphviz</strong></a>(self) -&gt; str</dt><dd><tt>Formats&nbsp;the&nbsp;tree&nbsp;as&nbsp;Dot&nbsp;notation.&nbsp;Enter&nbsp;the&nbsp;code&nbsp;at&nbsp;[1]&nbsp;to&nbsp;see&nbsp;a<br>
+graphic&nbsp;representation.<br>
+[1]:&nbsp;<a href="http://www.webgraphviz.com">http://www.webgraphviz.com</a>&nbsp;to&nbsp;see&nbsp;a&nbsp;graphic&nbsp;representation.<br>
+&nbsp;<br>
+:return:&nbsp;The&nbsp;tree&nbsp;as&nbsp;Graphviz&nbsp;code.</tt></dd></dl>
+
+<dl><dt><a name="Tree-insert"><strong>insert</strong></a>(self, key:int) -&gt; None</dt><dd><tt>Inserts&nbsp;a&nbsp;key&nbsp;into&nbsp;the&nbsp;tree.&nbsp;Does&nbsp;nothing&nbsp;if&nbsp;there&nbsp;already&nbsp;exists&nbsp;a<br>
+node&nbsp;with&nbsp;the&nbsp;given&nbsp;key.<br>
+&nbsp;<br>
+:param&nbsp;key:&nbsp;The&nbsp;key&nbsp;to&nbsp;add.</tt></dd></dl>
+
+<dl><dt><a name="Tree-remove"><strong>remove</strong></a>(self, key:int) -&gt; None</dt><dd><tt>Removes&nbsp;a&nbsp;key&nbsp;from&nbsp;the&nbsp;tree.&nbsp;Does&nbsp;nothing&nbsp;if&nbsp;the&nbsp;key&nbsp;was&nbsp;not&nbsp;present&nbsp;in<br>
+the&nbsp;tree.<br>
+&nbsp;<br>
+:param&nbsp;key:&nbsp;The&nbsp;key&nbsp;to&nbsp;remove.</tt></dd></dl>
+
+<dl><dt><a name="Tree-search"><strong>search</strong></a>(self, key:int) -&gt; typing.Union</dt><dd><tt>Searches&nbsp;for&nbsp;the&nbsp;key&nbsp;in&nbsp;the&nbsp;tree.&nbsp;Returns&nbsp;the&nbsp;node&nbsp;associated&nbsp;with&nbsp;the&nbsp;key.<br>
+&nbsp;<br>
+:param&nbsp;key:&nbsp;The&nbsp;key&nbsp;to&nbsp;find.<br>
+:return:&nbsp;The&nbsp;node&nbsp;for&nbsp;the&nbsp;given&nbsp;key&nbsp;or&nbsp;`None`&nbsp;if&nbsp;there&nbsp;is&nbsp;no&nbsp;such&nbsp;node.</tt></dd></dl>
+
+<hr>
+Data descriptors defined here:<br>
+<dl><dt><strong>__dict__</strong></dt>
+<dd><tt>dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<dl><dt><strong>__weakref__</strong></dt>
+<dd><tt>list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<hr>
+Data and other attributes defined here:<br>
+<dl><dt><strong>__hash__</strong> = None</dl>
+
+</td></tr></table> <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="TreeIterator">class <strong>TreeIterator</strong></a>(<a href="builtins.html#object">builtins.object</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt>Iterator&nbsp;for&nbsp;iterating&nbsp;over&nbsp;the&nbsp;keys&nbsp;of&nbsp;the&nbsp;nodes&nbsp;in&nbsp;a&nbsp;tree.<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%">Methods defined here:<br>
+<dl><dt><a name="TreeIterator-__init__"><strong>__init__</strong></a>(self, node:'Node')</dt><dd><tt>Initialize&nbsp;self.&nbsp;&nbsp;See&nbsp;help(type(self))&nbsp;for&nbsp;accurate&nbsp;signature.</tt></dd></dl>
+
+<dl><dt><a name="TreeIterator-__iter__"><strong>__iter__</strong></a>(self) -&gt; 'TreeIterator'</dt></dl>
+
+<dl><dt><a name="TreeIterator-__next__"><strong>__next__</strong></a>(self) -&gt; int</dt></dl>
+
+<hr>
+Data descriptors defined here:<br>
+<dl><dt><strong>__dict__</strong></dt>
+<dd><tt>dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<dl><dt><strong>__weakref__</strong></dt>
+<dd><tt>list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+</td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#eeaa77">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Functions</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#eeaa77"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl><dt><a name="-is_balanced"><strong>is_balanced</strong></a>(node)</dt></dl>
+</td></tr></table>
+</body></html>

@@ -110,7 +110,7 @@ class Node(object):
         :return: The rightmost node in the subtree, or `self` if there is no right subtree.
         """
         if self.right:
-            return self.right.first()
+            return self.right.last()        # TODO ignore; changed to call last()
         else:
             return self
 
@@ -238,8 +238,6 @@ class Tree(object):
         assert key is not None
         assert isinstance(node, Node)
 
-        # TODO implement
-
         node_key = node.key
         if key < node_key:
             if node.left is None:
@@ -316,7 +314,8 @@ class Tree(object):
         :param node: The node to be balanced.
         """
         assert isinstance(node, Node)
-        self._rotate_right(self.root)
+
+        # self._rotate_right(self.root)
 
     def _rotate_left(self, node: Node) -> None:
         """
@@ -336,7 +335,7 @@ class Tree(object):
         else:
             node.right.left, node.right = node, node.right.left
 
-    def _rotate_right(self, node: Node) -> None:
+    def _rotate_right(self, node: Node) -> None:        # TODO FIX IMPLEMENTATION
         """
         Rotates the tree clockwise at the given node.
 
@@ -345,14 +344,32 @@ class Tree(object):
         assert isinstance(node, Node)
         assert isinstance(node.left, Node)
 
+        # node.parent, node.left.parent = node.left.parent, node.parent
+
         if node.is_root():
-            self.root = node.left
-        node.parent, node.left.parent = node.left.parent, node.parent
+            self.root = node
+
+        print('1st - root: {}. most left: {}, most right: {}'.format(self.root.key, self.root.first().key,self.root.last().key))
+
+        # print('after swapping parents: \n{}'.format(self.graphviz()))
 
         if node.left.right is None:
+            print('node.left.right is None')
             node.left.right = node
         else:
-            node.left.right, node.left = node, node.left.right
+            print('node.left.right is NOT None')
+            # self.root.left, self.root.left.right = self.root.left.right, self.root
+            node.left = node.left.right
+
+        print('2nd - root: {}. most left: {}, most right: {}'.format(self.root.key, self.root.first().key,self.root.last().key))
+
+
+
+
+
+
+
+
 
     def copy(self) -> "Tree":
         """
