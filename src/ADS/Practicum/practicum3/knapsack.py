@@ -1,5 +1,6 @@
 import typing
 from functools import total_ordering
+debug = False
 
 # This total ordening defines comparison functions in terms of other functions
 # for example if you know when two objects are equal, you also know when they are not
@@ -79,7 +80,34 @@ class Knapsack(object):
 
         :param items: List of candidate items.
         """
-        raise NotImplementedError()
+        n = len(items)      #rows
+        w = self.max_weight #cols
+        M = [[0 for j in range(0, w + 1)] for i in range(0, n + 1)] # n * w matrix
+        items.insert(0, None)   # insert an extra item in the front so we can use indices from 1 to n
+
+        for i in range(1, n + 1):       # Starting from the second row with the first row having all zeros
+            for j in range(0, w + 1):
+                if items[i].weight > j:
+                    M[i][j] = M[i - 1][j]
+                else:
+                    M[i][j] = max(M[i - 1][j], M[i - 1][j - items[i].weight] + items[i].value)
+
+        self.items.extend(self.get_used_items(M, items))
+
+        if debug:
+            print(''.join(['{:4}'.format(index) for index in range(0, w + 1)]))
+            print('\n'.join([''.join(['{:4}'.format(item) for item in row]) for row in M]))
+
+    def get_used_items(self, value_matrix, items):
+        used_items = []
+        i = len(items) - 1
+        j = self.max_weight
+        while i > 0:
+            if value_matrix[i][j] != value_matrix[i - 1][j]:
+                used_items.append(items[i])
+                j -= items[i].weight
+            i -= 1
+        return used_items
 
     @property
     def value(self) -> int:
