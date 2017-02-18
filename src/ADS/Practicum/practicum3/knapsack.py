@@ -78,6 +78,8 @@ class Knapsack(object):
         This method should populate `self.items` with the chosen items. This
         method does not have to return anything.
 
+        Used algorithm from: http://www.micsymposium.org/mics_2005/papers/paper102.pdf
+
         :param items: List of candidate items.
         """
         n = len(items)      #rows
