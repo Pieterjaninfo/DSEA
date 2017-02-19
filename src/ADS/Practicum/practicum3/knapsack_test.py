@@ -12,7 +12,7 @@ class KnapSackTest(unittest.TestCase):
                        Item(50, 6), Item(40, 7), Item(30, 8), Item(20, 9)]
 
         self.solution = Knapsack(202)
-        self.solution.solve(items)
+        self.solution.solve_r(items)
 
     def test_knapsack_weight(self):
         self.assertEqual(self.solution.weight, 201)

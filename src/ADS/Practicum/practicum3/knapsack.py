@@ -70,6 +70,18 @@ class Knapsack(object):
     def valid(self):
         return self.weight <= self._max_weight
 
+    def solve_r(self, items: typing.List[Item]) -> None:
+        used_items = []
+        self.solve_recursively(items, len(items) - 1, self.max_weight)
+
+    def solve_recursively(self, items, i, w):
+        if i < 0:
+            return 0
+        if items[i].weight > w:
+            return self.solve_recursively(items, i - 1, w)
+        else:
+            return max(self.solve_recursively(items, i - 1, w), self.solve_recursively(items, i - 1, w - items[i].weight) + items[i].value)
+
     def solve(self, items: typing.List[Item]) -> None:
         """
         Fills this knapsack with items. A subset of the items passed to this
@@ -79,6 +91,7 @@ class Knapsack(object):
         method does not have to return anything.
 
         Used algorithm from: http://www.micsymposium.org/mics_2005/papers/paper102.pdf
+        Algorithm complexity: O(n*w)
 
         :param items: List of candidate items.
         """
