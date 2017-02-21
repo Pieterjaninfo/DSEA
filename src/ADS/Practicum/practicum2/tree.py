@@ -71,7 +71,14 @@ class Node(object):
 
     def __str__(self) -> str:
         # return "[{} {} {}]".format(str(self.left), self.key, str(self.right))
-        return "Node [{} <- {} -> {}]".format(self.left.key, self.key, self.right.key)
+        result = 'Node [ '
+        if self.left:
+            result += '{} <- '.format(self.left.true)
+        result += str(self.key)
+        if self.right:
+            result += ' -> {}'.format(self.right.key)
+        result += ' ]'
+        return result
 
     def is_left(self) -> bool:
         """
@@ -161,6 +168,8 @@ class Node(object):
 
         return node
 
+    def depth(self):
+        return
 
 class Tree(object):
     """
@@ -316,7 +325,10 @@ class Tree(object):
         """
         assert isinstance(node, Node)
 
-        # self._rotate_right(self.root)
+        print('len of root - left: {}, right: {}'.format(len(self.root.left), len(self.root.right)))
+        self._rotate_left(self.root)
+        print('len of root - left: {}, right: {}'.format(len(self.root.left), len(self.root.right)))
+
 
     def _rotate_left(self, node: Node) -> None:
         """
