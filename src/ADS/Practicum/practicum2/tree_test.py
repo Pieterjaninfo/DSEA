@@ -34,10 +34,8 @@ class TestTree(unittest.TestCase):
             nodes[key] = self.tree.search(key)
 
         # Rotate
-        # print(self.tree.graphviz())
         self.tree._rotate_left(self.tree.root)
         # print(self.tree.graphviz())
-
 
         # Check tree structure
         self.assertEquals(self.tree.root.key, 6)
@@ -50,20 +48,41 @@ class TestTree(unittest.TestCase):
         for key, node in nodes.items():
             self.assertEquals(self.tree.search(key), node)
 
-    def test_rotate_right(self):
+    def test_rotate_left2(self):
         sequence = [5, 3, 4, 2, 6]
+        nodes = {}
+
+        # Add nodes
+        for key in sequence:
+            self.tree.insert(key)
+            nodes[key] = self.tree.search(key)
+
+        # Rotate
+        self.tree._rotate_left(self.tree.root.left)
+        # print(self.tree.graphviz())
+
+        # Check tree structure
+        self.assertEquals(self.tree.root.key, 5)
+        self.assertEquals(self.tree.root.left.key, 4)
+        self.assertEquals(self.tree.root.left.left.key, 3)
+        self.assertEquals(self.tree.root.left.left.left.key, 2)
+        self.assertEquals(self.tree.root.right.key, 6)
+
+        # Compare if rotation was done using pointers instead of value reassignment
+        for key, node in nodes.items():
+            self.assertEquals(self.tree.search(key), node)
+
+    def test_rotate_right(self):
+        sequence = [5, 3, 2, 4, 6]
         nodes = {}
         # Add nodes
         for key in sequence:
             self.tree.insert(key)
             nodes[key] = self.tree.search(key)
 
-            # print('node value {} parent: {}'.format(key, nodes[key].parent))
-
-        # print(self.tree.graphviz())
         # Rotate
         self.tree._rotate_right(self.tree.root)
-        print(self.tree.graphviz())
+        # print(self.tree.graphviz())
 
         # Check tree structure
         self.assertEquals(self.tree.root.key, 3)
@@ -71,11 +90,38 @@ class TestTree(unittest.TestCase):
         self.assertEquals(self.tree.root.right.key, 5)
         self.assertEquals(self.tree.root.right.left.key, 4)
         self.assertEquals(self.tree.root.right.right.key, 6)
+
         self.assertEquals(self.tree.root.first().key, 2)
         self.assertEquals(self.tree.root.first().parent.key, 3)
-        self.assertEquals(self.tree.root.right.parent.parent.key, 3)
+        self.assertEquals(self.tree.root.last().parent.parent.key, 3)
 
 
+
+        # Compare if rotation was done using pointers instead of value reassignment
+        for key, node in nodes.items():
+            self.assertEquals(self.tree.search(key), node)
+
+    def test_rotate_right2(self):
+        sequence = [5, 3, 2, 4, 6]
+        nodes = {}
+        # Add nodes
+        for key in sequence:
+            self.tree.insert(key)
+            nodes[key] = self.tree.search(key)
+
+        # Rotate
+        self.tree._rotate_right(self.tree.root.left)
+        # print(self.tree.graphviz())
+
+        # Check tree structure
+        self.assertEquals(self.tree.root.key, 5)
+        self.assertEquals(self.tree.root.left.key, 2)
+        self.assertEquals(self.tree.root.left.right.key, 3)
+        self.assertEquals(self.tree.root.left.right.right.key, 4)
+        self.assertEquals(self.tree.root.right.key, 6)
+
+        self.assertEquals(self.tree.root.first().key, 2)
+        self.assertEquals(self.tree.root.last().key, 6)
 
         # Compare if rotation was done using pointers instead of value reassignment
         for key, node in nodes.items():

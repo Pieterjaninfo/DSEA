@@ -70,7 +70,8 @@ class Node(object):
         return length
 
     def __str__(self) -> str:
-        return "[{} {} {}]".format(str(self.left), self.key, str(self.right))
+        # return "[{} {} {}]".format(str(self.left), self.key, str(self.right))
+        return "Node [{} <- {} -> {}]".format(self.left.key, self.key, self.right.key)
 
     def is_left(self) -> bool:
         """
@@ -328,14 +329,21 @@ class Tree(object):
 
         if node.is_root():
             self.root = node.right
-        node.parent, node.right.parent = node.right.parent, node.parent
+        else:
+            node.parent.left = node.right   # parent of node needs to point to new node if not root
+
+        node.right.parent = node.parent
+        node.parent = node.right
 
         if node.right.left is None:
-            node.right.left = node
+            node.parent.left = node             # become left child
+            node.right = None                   # have no right child
         else:
-            node.right.left, node.right = node, node.right.left
+            node.right = node.parent.left       # get new right child
+            node.parent.left = node             # become left child
+            node.right.parent = node            # become parent of new right child
 
-    def _rotate_right(self, node: Node) -> None:        # TODO FIX IMPLEMENTATION
+    def _rotate_right(self, node: Node) -> None:
         """
         Rotates the tree clockwise at the given node.
 
@@ -344,32 +352,24 @@ class Tree(object):
         assert isinstance(node, Node)
         assert isinstance(node.left, Node)
 
-        # node.parent, node.left.parent = node.left.parent, node.parent
-
+        # Set new root if necessary
         if node.is_root():
-            self.root = node
-
-        print('1st - root: {}. most left: {}, most right: {}'.format(self.root.key, self.root.first().key,self.root.last().key))
-
-        # print('after swapping parents: \n{}'.format(self.graphviz()))
-
-        if node.left.right is None:
-            print('node.left.right is None')
-            node.left.right = node
+            self.root = node.left
         else:
-            print('node.left.right is NOT None')
-            # self.root.left, self.root.left.right = self.root.left.right, self.root
-            node.left = node.left.right
+            node.parent.left = node.left    # parent of node needs to point to new node if not root
 
-        print('2nd - root: {}. most left: {}, most right: {}'.format(self.root.key, self.root.first().key,self.root.last().key))
+        # Swap parents
+        node.left.parent = node.parent
+        node.parent = node.left
 
-
-
-
-
-
-
-
+        # Swap the new children and adjust the parent if necessary
+        if node.left.right is None:
+            node.parent.right = node        # become right child
+            node.left = None                # have no left child
+        else:
+            node.left = node.parent.right   # get new left child
+            node.parent.right = node        # become new right child
+            node.left.parent = node         # become parent of new left child
 
     def copy(self) -> "Tree":
         """
