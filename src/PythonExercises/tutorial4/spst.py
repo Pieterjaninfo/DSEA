@@ -14,7 +14,7 @@ TEST_DIJKSTRA_UNDIRECTED = True
 WRITE_DOT_FILES = True
 
 # Use this to select the graphs to test your algorithms on:
-# TestInstances = ["weightedexample.gr"]
+TestInstances = ["weightedexample.gr"]
 # TestInstances=["randomplanar.gr"]
 # TestInstances = ["randomplanar10.gr"]
 # TestInstances=["bd.gr","bbf.gr"]; WriteDOTFiles=False
@@ -25,7 +25,7 @@ WRITE_DOT_FILES = True
 # TestInstances=["WDE100.gr","WDE200.gr","WDE400.gr","WDE800.gr","WDE2000.gr"]; WriteDOTFiles=False
 # TestInstances=["WDE2000.gr"]
 # TestInstances=["weightedex500.gr"];	WriteDOTFiles=False
-TestInstances = ["graph1.gr", "graph2.gr", "graph3.gr", "graph4.gr", "graph5.gr", "graph6.gr"]
+# TestInstances = ["graph1.gr", "graph2.gr", "graph3.gr", "graph4.gr", "graph5.gr", "graph6.gr"]
 
 USE_UNSAFE_GRAPH = False
 
